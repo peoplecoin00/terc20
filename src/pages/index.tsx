@@ -28,7 +28,7 @@ export default function IndexPage() {
     tick: string;
   }[]>([])
   useEffect(() => {
-    axios.get('https://ethinsc.xyz/api/terc_list').then(res => {
+    axios.get('https://api.ethinsc.xyz/api/terc_list').then(res => {
       if(res.data){
         const ticks = res.data.data
         if(ticks?.length){

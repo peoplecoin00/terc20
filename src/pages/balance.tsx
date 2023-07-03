@@ -24,7 +24,7 @@ export default function BalancePage() {
   const { tick, address } = useParams<{ tick?: string; address?: string }>();
 
   useEffect(() => {
-    axios.get(`https://ethinsc.xyz/api/terc_balance?tick=${tick}&addr=${address}`).then(res => {
+    axios.get(`https://api.ethinsc.xyz/api/terc_balance?tick=${tick}&addr=${address}`).then(res => {
         __balance(res?.data?.data ?? '--')
     })
   }, [address])
