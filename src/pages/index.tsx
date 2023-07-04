@@ -14,7 +14,7 @@ const MINT = {
   "p":"terc-20",
   "op":"mint",
   "tick":"ethi",
-  "amt":"1000",
+  // "amt":"1000",
 }
 
 export default function IndexPage() {
@@ -26,22 +26,32 @@ export default function IndexPage() {
     max: string;
     amount: string;
     tick: string;
+    json: {
+      lim: string;
+      wlim: string;
+    }
   }[]>([])
   useEffect(() => {
-    axios.get('https://api.ethinsc.xyz/api/terc_list').then(res => {
+    axios.get(location.host === 'localhost:1001' ? 'http://127.0.0.1:3000/api/terc_list' : 'https://api.ethinsc.xyz/api/terc_list').then(res => {
       if(res.data){
-        const ticks = res.data.data
+        const ticks = res.data.data.map((e: any) => {
+          return {
+            ...e,
+            json: JSON.parse(e.json)
+          }
+        })
         if(ticks?.length){
           __tick_list(ticks)
         }
       }
     })
   }, [])
-  const onMint =  async (tick: string) => {
+  const onMint =  async (tick: string, lim: string) => {
     const dataString = JSON.stringify({
       ...MINT,
       tick,
       nonce: new Date().getTime().toString().substring(7, 13),
+      amt: lim,
     })
     if (typeof window.ethereum !== 'undefined') {
         const web3 = new Web3(window.ethereum);
@@ -100,7 +110,7 @@ export default function IndexPage() {
             textAlign: 'center',
             lineHeight: '2em',
           }}>
-            <Typography component="h3">The full list of TRrc-20</Typography>
+            <Typography component="h3">The full list of Terc-20</Typography>
           </Box>
           <Table>
             <TableHead>
@@ -109,6 +119,7 @@ export default function IndexPage() {
                 <TableCell align="center">Depoly Time</TableCell>
                 <TableCell align="center">Progress</TableCell>
                 <TableCell align="center">Holder</TableCell>
+                <TableCell align="center">Limit per mint</TableCell>
                 <TableCell align="center">Mint</TableCell>
               </TableRow>
             </TableHead>
@@ -128,7 +139,10 @@ export default function IndexPage() {
                       <Typography>{tick.holder}</Typography>
                     </TableCell>
                     <TableCell  align="center">
-                      <Button variant='outlined'  onClick={() => onMint(tick.tick)}>Mint</Button>
+                      <Typography>{tick.json.lim}</Typography>
+                    </TableCell>
+                    <TableCell  align="center">
+                      <Button variant='outlined'  onClick={() => onMint(tick.tick, tick.json.lim)}>Mint</Button>
                     </TableCell>
                 </TableRow>
               })}

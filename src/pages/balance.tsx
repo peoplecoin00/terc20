@@ -77,7 +77,7 @@ export default function BalancePage() {
               lineHeight: '2em',
             }}
           >
-            <Typography component="h3">The full list of TRrc-20</Typography>
+            <Typography component="h3">The full list of Terc-20</Typography>
           </Box>
 
           <Card title={tick} style={{ width: 300 }}>
