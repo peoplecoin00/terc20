@@ -127,7 +127,7 @@ export default function IndexPage() {
               {tick_list?.map((tick) => {
                 return <TableRow key={tick.tick} sx={{ borderBottom: '1px solid' }}>
                     <TableCell  align="center">
-                      <Typography>{tick.tick}</Typography>
+                      <Typography sx={{ textTransform: 'uppercase' }}>{tick.tick}</Typography>
                     </TableCell>
                     <TableCell  align="center">
                       <Typography>{new Date(parseInt(tick.time) * 1000).toLocaleString()}</Typography>
