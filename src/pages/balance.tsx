@@ -77,7 +77,7 @@ export default function BalancePage() {
               lineHeight: '2em',
             }}
           >
-            <Typography component="h3">The full list of Terc-20</Typography>
+            <Typography component="h3">The full list of IERC-20</Typography>
           </Box>
 
           {(balances && balances.length > 0 ? balances : [{

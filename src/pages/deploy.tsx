@@ -66,7 +66,7 @@ export default function DeployPage() {
               history.replace('/');
             }}
           >
-            TERC V2 (Beta)
+            IERC-20 (Beta)
           </Typography>
         </Box>
       
