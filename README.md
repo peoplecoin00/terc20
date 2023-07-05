@@ -1,6 +1,9 @@
-# TERC-20
+# IERC-20
 
 Website: https://ethinsc.xyz
+
+IETH-20 is an Eth Inscription protocol, upgraded based on terc, with complete token transaction logic and extremely low transaction fees, as well as batch transfer capabilities.
+It is very index friendly and ETHINSC has opened an API for direct use.
 
 ## prefix
 data:application/json,
