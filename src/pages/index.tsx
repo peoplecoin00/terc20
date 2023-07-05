@@ -88,7 +88,7 @@ export default function IndexPage() {
           mt: '40px',
           mb: '20px',
         }}>
-          <Typography sx={{ fontSize: '20px', mb: '20px' }}>Check out Terc-20 balance of the address.</Typography>
+          <Typography sx={{ fontSize: '20px', mb: '20px' }}>Check out Ierc-20 balance of the address.</Typography>
           <form>
             <Search
               placeholder="input search address"

@@ -49,7 +49,7 @@ export default function BalancePage() {
           }}
         >
           <Typography sx={{ fontSize: '20px', mb: '20px' }}>
-            Check out Terc-20 balance of the address.
+            Check out Ierc-20 balance of the address.
           </Typography>
           <Search
             placeholder="input search address"
