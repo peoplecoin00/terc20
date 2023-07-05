@@ -1,6 +1,6 @@
 # TERC-20
 
-Website: ethinsc.xyz
+Website: https://ethinsc.xyz
 
 ## prefix
 data:application/json,
@@ -45,13 +45,13 @@ data:application/json,
     "nonce":"1"
 }
 
-// transfer; send 0eth from self to 0x0000000000000000000000000000000000000000, suggest up to 3 addresses;
+// transfer; send 0eth from self to 0x0000000000000000000000000000000000000000
 {
   "p": "terc-20",
   "op": "transfer", //transfer operation
   "tick": "ethi",
   "nonce": "2",
-  "to": [ //batch transfer, the sum of amt must equal the previous amt param, max 3, max 3
+  "to": [ //batch transfer, the sum of amt must equal the previous amt param
     {
       "recv": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48", //receiver address
       "amt": "50" //receiver amount

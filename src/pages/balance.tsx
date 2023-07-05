@@ -20,12 +20,12 @@ import { useHistory, useParams } from 'umi';
 
 export default function BalancePage() {
     const history = useHistory()
-  const [balance, __balance] = useState('--');
+  const [balances, __balances] = useState<{ tick: string; balance: string }[]>([]);
   const { tick, address } = useParams<{ tick?: string; address?: string }>();
 
   useEffect(() => {
-    axios.get(`https://api.ethinsc.xyz/api/terc_balance?tick=${tick}&addr=${address}`).then(res => {
-        __balance(res?.data?.data ?? '--')
+    axios.get(`/api/terc_balances?addr=${address}`).then(res => {
+        __balances(res?.data?.data ?? [])
     })
   }, [address])
   return (
@@ -80,9 +80,12 @@ export default function BalancePage() {
             <Typography component="h3">The full list of Terc-20</Typography>
           </Box>
 
-          <Card title={tick} style={{ width: 300 }}>
-            <Typography>Balance: {balance}</Typography>
-          </Card>
+          {(balances && balances.length > 0 ? balances : [{
+            tick: 'ethi',
+            balance: '0.0000',
+          }]).map(balance => <Card title={balance.tick} style={{ width: 300, display: 'inline-block', marginRight: '20px' }}>
+            <Typography>Balance: {balance.balance}</Typography>
+          </Card>)}
 
           <Table>
             <TableHead>

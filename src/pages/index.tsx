@@ -17,6 +17,8 @@ const MINT = {
   // "amt":"1000",
 }
 
+axios.defaults.baseURL = location.host === 'localhost:1001' ? 'http://127.0.0.1:3000' : 'https://api.ethinsc.xyz'
+
 export default function IndexPage() {
   const history = useHistory()
   const [tick_list, __tick_list] = useState<{
@@ -32,7 +34,7 @@ export default function IndexPage() {
     }
   }[]>([])
   useEffect(() => {
-    axios.get(location.host === 'localhost:1001' ? 'http://127.0.0.1:3000/api/terc_list' : 'https://api.ethinsc.xyz/api/terc_list').then(res => {
+    axios.get('/api/terc_list').then(res => {
       if(res.data){
         const ticks = res.data.data.map((e: any) => {
           return {
@@ -87,16 +89,20 @@ export default function IndexPage() {
           mb: '20px',
         }}>
           <Typography sx={{ fontSize: '20px', mb: '20px' }}>Check out Terc-20 balance of the address.</Typography>
-          <Search
-            placeholder="input search address"
-            allowClear
-            onSearch={(value) => {
-              console.log('value', value)
-                history.push(`/balance/ethi/${value}`)
-            }}
-            enterButton 
-            style={{ maxWidth: 604 }}
-          />
+          <form>
+            <Search
+              placeholder="input search address"
+              allowClear
+              autocomplete={"on"}
+              name="address"
+              onSearch={(value) => {
+                console.log('value', value)
+                  history.push(`/balance/ethi/${value}`)
+              }}
+              enterButton 
+              style={{ maxWidth: 604 }}
+            />
+          </form>
         </Box>
         <Box sx={{
           mt: '40px',
