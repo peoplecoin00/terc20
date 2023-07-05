@@ -83,7 +83,7 @@ export default function BalancePage() {
           {(balances && balances.length > 0 ? balances : [{
             tick: 'ethi',
             balance: '0.0000',
-          }]).map(balance => <Card title={balance.tick} style={{ width: 300, display: 'inline-block', marginRight: '20px' }}>
+          }]).map((balance, index) => <Card key={index} title={balance.tick} style={{ width: 300, display: 'inline-block', marginRight: '20px' }}>
             <Typography>Balance: {balance.balance}</Typography>
           </Card>)}
 

@@ -19,20 +19,10 @@ const MINT = {
 
 axios.defaults.baseURL = location.host === 'localhost:1001' ? 'http://127.0.0.1:3000' : 'https://api.ethinsc.xyz'
 
+const AntdSearch: any = Search
 export default function IndexPage() {
   const history = useHistory()
-  const [tick_list, __tick_list] = useState<{
-    holder: string;
-    creator: string;
-    time: string;
-    max: string;
-    amount: string;
-    tick: string;
-    json: {
-      lim: string;
-      wlim: string;
-    }
-  }[]>([])
+  const [tick_list, __tick_list] = useState<ITickInfo[]>([])
   useEffect(() => {
     axios.get('/api/terc_list').then(res => {
       if(res.data){
@@ -72,7 +62,10 @@ export default function IndexPage() {
     } else {
         console.log('MetaMask is not installed!');
     }
-}
+  }
+  const onDetail = (tick: string) => {
+    history.push(`/detail/${tick}`)
+  }
   return (
     <ThemeProvider theme={LightTheme}>
     <Box className={styles.slogan} sx={{
@@ -90,12 +83,12 @@ export default function IndexPage() {
         }}>
           <Typography sx={{ fontSize: '20px', mb: '20px' }}>Check out IERC-20 balance of the address.</Typography>
           <form>
-            <Search
+            <AntdSearch
               placeholder="input search address"
               allowClear
-              autocomplete={"on"}
+              autoComplete={"on"}
               name="address"
-              onSearch={(value) => {
+              onSearch={(value: any) => {
                 console.log('value', value)
                   history.push(`/balance/ethi/${value}`)
               }}
@@ -116,7 +109,7 @@ export default function IndexPage() {
             textAlign: 'center',
             lineHeight: '2em',
           }}>
-            <Typography component="h3">The full list of Terc-20</Typography>
+            <Typography component="h3">The full list of IERC-20</Typography>
           </Box>
           <Table>
             <TableHead>
@@ -127,11 +120,18 @@ export default function IndexPage() {
                 <TableCell align="center">Holder</TableCell>
                 <TableCell align="center">Limit per mint</TableCell>
                 <TableCell align="center">Mint</TableCell>
+                <TableCell align="center">Detail / Trade</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {tick_list?.map((tick) => {
-                return <TableRow key={tick.tick} sx={{ borderBottom: '1px solid' }}>
+                return <TableRow key={tick.tick}  sx={{
+                  borderBottom: '1px solid',
+                  '::hover': {
+                    cursor: 'pointer',
+                    background: 'rgba(0,0,0,0.5)',
+                  }
+                }}>
                     <TableCell  align="center">
                       <Typography sx={{ textTransform: 'uppercase' }}>{tick.tick}</Typography>
                     </TableCell>
@@ -149,6 +149,10 @@ export default function IndexPage() {
                     </TableCell>
                     <TableCell  align="center">
                       <Button variant='outlined'  onClick={() => onMint(tick.tick, tick.json.lim)}>Mint</Button>
+                    </TableCell>
+                    <TableCell  align="center">
+                      {/* <Button variant='outlined'  onClick={() => onDetail(tick.tick)}>Detail / Trade</Button> */}
+                      <Button variant='outlined'  onClick={() => onDetail(tick.tick)}>Detail</Button>
                     </TableCell>
                 </TableRow>
               })}
@@ -177,5 +181,18 @@ export default function IndexPage() {
 declare global {
   interface Window {
       ethereum: any;
+  }
+}
+
+export type ITickInfo = {
+  holder: string;
+  creator: string;
+  time: string;
+  max: string;
+  amount: string;
+  tick: string;
+  json: {
+    lim: string;
+    wlim: string;
   }
 }
