@@ -5,7 +5,7 @@ export default defineConfig({
     type: 'none',
   },
   favicon: '/favicon.ico',
-  title: "TERC 20 -- ETH INSC",
+  title: "IERC 20 -- ETH INSC",
   routes: [
     { path: '/', component: '@/pages/index' },
     { path: '/balance/:tick/:address', component: '@/pages/balance' },

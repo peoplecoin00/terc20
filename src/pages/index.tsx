@@ -79,7 +79,7 @@ export default function IndexPage() {
       p: '20px',
     }}>
         <Box sx={{ display: 'flex' }}>
-          <Typography component="h1">TERC V2 (Beta)</Typography>
+          <Typography component="h1">IERC-20 (Beta)</Typography>
           <Typography component="h1" sx={{ml: '40px', cursor: 'pointer'}} onClick={() => {
             history.push('/deploy')
           }}>Deploy</Typography>
@@ -88,7 +88,7 @@ export default function IndexPage() {
           mt: '40px',
           mb: '20px',
         }}>
-          <Typography sx={{ fontSize: '20px', mb: '20px' }}>Check out Ierc-20 balance of the address.</Typography>
+          <Typography sx={{ fontSize: '20px', mb: '20px' }}>Check out IERC-20 balance of the address.</Typography>
           <form>
             <Search
               placeholder="input search address"

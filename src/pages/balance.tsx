@@ -39,7 +39,7 @@ export default function BalancePage() {
         <Box>
           <Typography component="h1" sx={{ cursor: 'pointer' }} onClick={() => {
             history.replace('/')
-          }}>TERC V2 (Beta)</Typography>
+          }}>IERC-20 (Beta)</Typography>
         </Box>
         <Box
           textAlign={'center'}
@@ -49,7 +49,7 @@ export default function BalancePage() {
           }}
         >
           <Typography sx={{ fontSize: '20px', mb: '20px' }}>
-            Check out Ierc-20 balance of the address.
+            Check out IERC-20 balance of the address.
           </Typography>
           <Search
             placeholder="input search address"
