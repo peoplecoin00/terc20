@@ -88,7 +88,7 @@ export default function BalancePage() {
           </Card>)}
 
           <Table>
-            <TableHead>
+            {/* <TableHead>
               <TableRow>
                 <TableCell align="center">Method</TableCell>
                 <TableCell align="center">Quantity</TableCell>
@@ -96,9 +96,10 @@ export default function BalancePage() {
                 <TableCell align="center">Date Time</TableCell>
                 <TableCell align="center">Date Time</TableCell>
               </TableRow>
-            </TableHead>
+            </TableHead> */}
+            <Box sx={{ mt: '20px' }}></Box>
             <TableBody>
-              <Typography>comming soon</Typography>
+              <Typography>Transaction comming soon</Typography>
             </TableBody>
           </Table>
         </Box>
@@ -108,7 +109,7 @@ export default function BalancePage() {
           sx={{
             svg: {
               p: '16px',
-              width: '80px',
+              width: '40px',
             },
           }}
         >
