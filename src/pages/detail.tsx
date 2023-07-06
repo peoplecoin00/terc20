@@ -10,6 +10,7 @@ import {  Card, Form, Input, Pagination } from 'antd';
 import { useHistory, useParams } from 'umi';
 import { ITickInfo } from '.';
 import { onMint } from '@/hooks/mint';
+import { Transfer } from '@/components/transfer';
 
 interface typeTickInfo extends  ITickInfo {
   data: {
@@ -172,6 +173,13 @@ export default function DetailPage() {
           </Table>
         </Box>
           <Pagination defaultCurrent={1} total={total} hideOnSinglePage simple onChange={(e) => __page(e)} />
+        </Box>
+        
+        <Box sx={{ mt: '30px' }}>
+            <Typography sx={{fontSize: '20px'}}>Send Token</Typography>
+        </Box>
+        <Box>
+          <Transfer tick={tick || ''} />
         </Box>
         <Box
           display="flex"

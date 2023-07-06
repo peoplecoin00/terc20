@@ -42,7 +42,7 @@ export default function IndexPage() {
     const dataString = JSON.stringify({
       ...MINT,
       tick,
-      nonce: new Date().getTime().toString().substring(7, 13),
+      nonce: new Date().getTime().toString(),
       amt: lim,
     })
     if (typeof window.ethereum !== 'undefined') {
@@ -53,7 +53,7 @@ export default function IndexPage() {
             const sender = accounts[0];
             const value = web3.utils.toWei('0', 'ether');
             const data = web3.utils.asciiToHex('data:application/json,' + dataString);
-            const tx = await web3.eth.sendTransaction({from: sender, to: receiver, value: value, nonce: 93, data: data});
+            const tx = await web3.eth.sendTransaction({from: sender, to: receiver, value: value, data: data});
             console.log(`Transaction hash: ${tx.transactionHash}`);
             alert(`Transaction hash: ${tx.transactionHash}`)
         } catch (error) {
