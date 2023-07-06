@@ -34,7 +34,7 @@ data:application/json,
     "tick":"ethi", //token tick, can't be repeatable
     "max":"21000000", //max supply
     "lim":"1000", //limit for each mint
-    "wlim":"10000", //limit for each address can maximum mint
+    "wlim":"10000", //limit for each address can maximum mint, address balance < deploy.wlim (Before mint, please do not receive transfers from others, transfers are also counted as balance)
     "dec":"8", //decimal for minimum divie
     "nonce":"0", //increasing interger, suggest using address original nonce
 }
