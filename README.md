@@ -40,6 +40,7 @@ data:application/json,
 }
 
 // mint; send 0eth from self to 0x0000000000000000000000000000000000000000;
+// The initiator of the transaction is the receiver
 {
     "p":"terc-20",
     "op":"mint", //mint operation
