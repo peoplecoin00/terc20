@@ -31,7 +31,7 @@ data:application/json,
 {
     "p":"terc-20", //protocol name: tradable/transferrable erc-20
     "op":"deploy", //operation: deploy/mint/transfer/sell/sellAck
-    "tick":"ethi", //token tick, can't be repeatable
+    "tick":"ethi", //token tick, can't be repeatable, case insensitive.
     "max":"21000000", //max supply
     "lim":"1000", //limit for each mint
     "wlim":"10000", //limit for each address can maximum mint, address balance < deploy.wlim (Before mint, please do not receive transfers from others, transfers are also counted as balance)
