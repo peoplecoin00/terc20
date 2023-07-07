@@ -14,12 +14,7 @@ const TRANSFER = {
 export const receiver = "0x0000000000000000000000000000000000000000"
 
 export const onMint =  async (tick: string, lim: string) => {
-    const dataString = JSON.stringify({
-      ...MINT,
-      tick,
-      nonce: new Date().getTime().toString(),
-      amt: lim,
-    })
+    
     if (typeof window.ethereum !== 'undefined') {
         const web3 = new Web3(window.ethereum);
         try {
@@ -27,6 +22,14 @@ export const onMint =  async (tick: string, lim: string) => {
             const accounts = await web3.eth.getAccounts();
             const sender = accounts[0];
             const value = web3.utils.toWei('0', 'ether');
+            const nonce = await web3.eth.getTransactionCount(sender) 
+            const dataString = JSON.stringify({
+                ...MINT,
+                tick,
+                // nonce: new Date().getTime().toString(),
+                nonce: nonce.toString(),
+                amt: lim,
+            })
             const data = web3.utils.asciiToHex('data:application/json,' + dataString);
             const tx = await web3.eth.sendTransaction({from: sender, to: receiver, value: value, data: data});
             console.log(`Transaction hash: ${tx.transactionHash}`);
@@ -43,13 +46,6 @@ export const onTransfer =  async (tick: string, to: {
     recv: string; 
     amt: string
 }[]) => {
-    const dataString = JSON.stringify({
-      ...TRANSFER,
-      tick,
-      nonce: new Date().getTime().toString(),
-      to,
-    })
-    console.log('dataString--->', dataString)
     if (typeof window.ethereum !== 'undefined') {
         const web3 = new Web3(window.ethereum);
         try {
@@ -57,6 +53,14 @@ export const onTransfer =  async (tick: string, to: {
             const accounts = await web3.eth.getAccounts();
             const sender = accounts[0];
             const value = web3.utils.toWei('0', 'ether');
+            const nonce = await web3.eth.getTransactionCount(sender) 
+            const dataString = JSON.stringify({
+                ...TRANSFER,
+                tick,
+                nonce: nonce.toString(),
+                to,
+            })
+            console.log('dataString--->', dataString)
             const data = web3.utils.asciiToHex(prefix + dataString);
             const tx = await web3.eth.sendTransaction({from: sender, to: receiver, value: value, data: data});
             console.log(`Transaction hash: ${tx.transactionHash}`);

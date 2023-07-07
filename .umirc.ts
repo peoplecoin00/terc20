@@ -4,7 +4,7 @@ export default defineConfig({
   nodeModulesTransform: {
     type: 'none',
   },
-  favicon: '/favicon.ico',
+  favicon: '/favicon.png',
   title: "IERC 20 -- ETH INSC",
   history: { type: 'hash' },
   routes: [
