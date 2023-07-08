@@ -191,7 +191,7 @@ export default function DetailPage() {
             },
           }}
         >
-          <a href="https://twitter.com/people_ordinals" target="_blank">
+          <a href="https://twitter.com/EthinscXYZ" target="_blank">
             <svg
               viewBox="0 0 1024 1024"
               version="1.1"

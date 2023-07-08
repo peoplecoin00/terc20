@@ -16,8 +16,14 @@ export const Transfer: FC<{
     };
     const onFinish = async (values: {transfer: {recv: string, amt: string}[]}) => {
         __send_loading(true)
-        const to = values.transfer
-        if(to.length){
+        const _to = values.transfer
+        if(_to.length){
+            const to = _to.map((e) => {
+                return {
+                    ...e,
+                    recv: e.recv.toLocaleLowerCase()
+                }
+            })
             await onTransfer(tick, to)
         }
         __send_loading(false)
