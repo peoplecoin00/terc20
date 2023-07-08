@@ -18,6 +18,7 @@ const MINT = {
 }
 
 axios.defaults.baseURL = location.host === 'localhost:1001' ? 'http://127.0.0.1:3000' : 'https://api.ethinsc.xyz'
+// axios.defaults.baseURL = 'https://api.ethinsc.xyz'
 
 const AntdSearch: any = Search
 export default function IndexPage() {
@@ -68,7 +69,7 @@ export default function IndexPage() {
   }
   return (
     <ThemeProvider theme={LightTheme}>
-    {false ? <Box className={styles.slogan} sx={{
+    {true ? <Box className={styles.slogan} sx={{
       p: '20px',
     }}>
         <Box sx={{ display: 'flex' }}>
