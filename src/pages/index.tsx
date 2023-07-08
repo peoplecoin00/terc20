@@ -133,7 +133,9 @@ export default function IndexPage() {
                   }
                 }}>
                     <TableCell  align="center">
-                      <Typography sx={{ textTransform: 'uppercase' }}>{tick.tick}</Typography>
+                      <Typography sx={{ 
+                        // textTransform: 'uppercase' 
+                      }}>{tick.tick}</Typography>
                     </TableCell>
                     <TableCell  align="center">
                       <Typography>{new Date(parseInt(tick.time) * 1000).toLocaleString()}</Typography>
