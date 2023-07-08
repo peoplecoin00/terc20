@@ -17,24 +17,40 @@ const MINT = {
   // "amt":"1000",
 }
 
-axios.defaults.baseURL = location.host === 'localhost:1001' ? 'http://127.0.0.1:3000' : 'https://api.ethinsc.xyz'
-// axios.defaults.baseURL = 'https://api.ethinsc.xyz'
+// axios.defaults.baseURL = location.host === 'localhost:1001' ? 'http://127.0.0.1:3000' : 'https://api.ethinsc.xyz'
+axios.defaults.baseURL = 'https://api.ethinsc.xyz'
 
 const AntdSearch: any = Search
 export default function IndexPage() {
   const history = useHistory()
   const [tick_list, __tick_list] = useState<ITickInfo[]>([])
   useEffect(() => {
-    axios.get('/api/terc_list').then(res => {
+    axios.get('/api/terc_list').then(async res => {
       if(res.data){
-        const ticks = res.data.data.map((e: any) => {
-          return {
-            ...e,
-            json: JSON.parse(e.json)
+        let list = []
+        for (const iterator of res.data.data) {
+          const Progress = (parseInt(iterator.amount) / parseInt(iterator.max) * 100).toFixed(4)
+          if(Progress === '100.0000'){
+            const holder = await new Promise((ok) => {
+              axios.get('/api/ierc_holder', {
+                params: {
+                  tick: iterator.tick
+                }
+              }).then(res => {
+                ok(res?.data?.total || iterator?.holder)
+              })
+            })
+            iterator.holder = holder
+            
           }
-        })
-        if(ticks?.length){
-          __tick_list(ticks)
+          list.push({
+            ...iterator,
+            json: JSON.parse(iterator.json)
+          })
+        }
+
+        if(list?.length){
+          __tick_list(list)
         }
       }
     })
@@ -127,7 +143,7 @@ export default function IndexPage() {
             <TableBody>
               {tick_list?.map((tick) => {
                 const Progress = (parseInt(tick.amount) / parseInt(tick.max) * 100).toFixed(4)
-                return <TableRow key={tick.tick}  sx={{
+                return <TableRow key={tick.tick + '-' + tick.holder}  sx={{
                   borderBottom: '1px solid',
                   '::hover': {
                     cursor: 'pointer',

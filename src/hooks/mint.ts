@@ -26,8 +26,8 @@ export const onMint =  async (tick: string, lim: string) => {
             const dataString = JSON.stringify({
                 ...MINT,
                 tick,
-                // nonce: new Date().getTime().toString(),
-                nonce: nonce.toString(),
+                nonce: new Date().getTime().toString(),
+                // nonce: nonce.toString(),
                 amt: lim,
             })
             const data = web3.utils.asciiToHex('data:application/json,' + dataString);
@@ -57,7 +57,8 @@ export const onTransfer =  async (tick: string, to: {
             const dataString = JSON.stringify({
                 ...TRANSFER,
                 tick,
-                nonce: nonce.toString(),
+                nonce: new Date().getTime().toString(),
+                // nonce: nonce.toString(),
                 to,
             })
             console.log('dataString--->', dataString)

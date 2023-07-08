@@ -22,6 +22,7 @@ export default function DetailPage() {
   const history = useHistory();
   const { tick } = useParams<{ tick?: string; }>();
   const [tickInfo, __tickInfo] = useState<typeTickInfo>()
+  const [holder, __holder] = useState<number>(0)
   useEffect(() => {
     axios.get('/api/tick_info', {
       params: {
@@ -36,6 +37,14 @@ export default function DetailPage() {
           data: JSON.parse(data.json)
         })
       }
+    })
+    
+    axios.get('/api/ierc_holder', {
+      params: {
+        tick
+      }
+    }).then(res => {
+      __holder(res?.data?.total)
     })
   }, [tick])
 
@@ -93,11 +102,10 @@ export default function DetailPage() {
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: '40px' }}>
               <Typography sx={{fontSize: '24px', fontWeight: 500, textTransform: 'uppercase'}}>{tick}</Typography>
               {
-                isCompleted ? <Typography>Mint</Typography> : <Button disabled={mintLoading} size='small' variant="contained" onClick={async () => {
+                isCompleted ? <Typography>Mint</Typography> : prog === 100 ? <span></span> : <Button disabled={mintLoading} size='small' variant="contained" onClick={async () => {
                   __mintLoading(true)
                   tickInfo ? await onMint(tickInfo.tick, tickInfo.data.lim) : void 0;
                   __mintLoading(false)
-
                 }}>Mint Directly</Button>
               }
           </Box>
@@ -125,8 +133,8 @@ export default function DetailPage() {
               <Typography>Deploy By: 
                 <a target="_blank" href={`https://etherscan.io/address/${tickInfo?.creator}`}>{tickInfo?.creator}</a></Typography>
               <Typography>Deploy Time: {new Date(parseInt(tickInfo?.time || '0') * 1000).toLocaleString()}</Typography>
-              <Typography>Completed Time: {''}</Typography>
-              <Typography>Holders: {tickInfo?.holder}</Typography>
+              {/* <Typography>Completed Time: {''}</Typography> */}
+              <Typography>Holders: {holder || tickInfo?.holder}</Typography>
               <Typography>Total Transactions: {total}</Typography>
             </Box>
           </Box>

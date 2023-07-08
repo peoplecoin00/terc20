@@ -16,7 +16,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Search from 'antd/es/input/Search';
 import { Card } from 'antd';
-import { useHistory, useParams } from 'umi';
+import { Link, useHistory, useParams } from 'umi';
 
 export default function BalancePage() {
     const history = useHistory()
@@ -100,6 +100,9 @@ export default function BalancePage() {
             <Box sx={{ mt: '20px' }}></Box>
             <TableBody>
               <Typography>Transaction comming soon</Typography>
+              <Box>
+                <Link to={`/send_list/${address}`}>query links all relevant data</Link>
+              </Box>
             </TableBody>
           </Table>
         </Box>
