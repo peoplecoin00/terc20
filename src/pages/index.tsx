@@ -125,6 +125,7 @@ export default function IndexPage() {
             </TableHead>
             <TableBody>
               {tick_list?.map((tick) => {
+                const Progress = (parseInt(tick.amount) / parseInt(tick.max) * 100).toFixed(4)
                 return <TableRow key={tick.tick}  sx={{
                   borderBottom: '1px solid',
                   '::hover': {
@@ -141,7 +142,7 @@ export default function IndexPage() {
                       <Typography>{new Date(parseInt(tick.time) * 1000).toLocaleString()}</Typography>
                     </TableCell>
                     <TableCell  align="center">
-                      <Typography>{ (parseInt(tick.amount) / parseInt(tick.max) * 100).toFixed(4)} %</Typography>
+                      <Typography>{ Progress } %</Typography>
                     </TableCell>
                     <TableCell  align="center">
                       <Typography>{tick.holder}</Typography>
@@ -150,7 +151,7 @@ export default function IndexPage() {
                       <Typography>{tick.json.lim}</Typography>
                     </TableCell>
                     <TableCell  align="center">
-                      <Button variant='outlined'  onClick={() => onMint(tick.tick, tick.json.lim)}>Mint</Button>
+                      {Progress === '100.0000' ? '--' : <Button variant='outlined'  onClick={() => onMint(tick.tick, tick.json.lim)}>Mint</Button>}
                     </TableCell>
                     <TableCell  align="center">
                       {/* <Button variant='outlined'  onClick={() => onDetail(tick.tick)}>Detail / Trade</Button> */}

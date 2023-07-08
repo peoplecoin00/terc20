@@ -67,3 +67,7 @@ data:application/json,
   ]
 }
 ```
+
+## index
+
+* Mint is invalid in the same block
