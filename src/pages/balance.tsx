@@ -54,6 +54,7 @@ export default function BalancePage() {
           <Search
             placeholder="input search address"
             allowClear
+            defaultValue={address}
             onSearch={(value) => {
               console.log('value', value);
             }}
