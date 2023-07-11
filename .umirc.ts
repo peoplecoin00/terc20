@@ -9,7 +9,7 @@ export default defineConfig({
   history: { type: 'hash' },
   routes: [
     { path: '/', component: '@/pages/index' },
-    { path: '/balance/:tick/:address', component: '@/pages/balance' },
+    { path: '/balance/:address', component: '@/pages/balance' },
     { path: '/deploy', component: '@/pages/deploy' },
     { path: '/detail/:tick', component: '@/pages/detail' },
     { path: '/send_list/:address', component: '@/pages/sendList' },

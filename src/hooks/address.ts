@@ -1,0 +1,1 @@
+export const addressToStr = (address: string) => address.substring(0, 4) + '...' + address.substring(address.length - 5, address.length)

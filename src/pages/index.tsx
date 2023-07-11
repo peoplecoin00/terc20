@@ -28,10 +28,12 @@ export default function IndexPage() {
   const [tick_list, __tick_list] = useState<ITickInfo[]>([])
   const [total, __total] = useState(0)
   const [page, __page] = useState(1)
+  const pageSize = 20
   useEffect(() => {
     axios.get('/api/ierc_list', {
       params: {
         page,
+        limit: pageSize,
       }
     }).then(async res => {
       if(res.data){
@@ -94,7 +96,7 @@ export default function IndexPage() {
   }
   return (
     <ThemeProvider theme={LightTheme}>
-    {true ? <Box className={styles.slogan} sx={{
+    {!true ? <Box className={styles.slogan} sx={{
       p: '20px',
     }}>
         <Box sx={{ display: 'flex' }}>
@@ -116,7 +118,7 @@ export default function IndexPage() {
               name="address"
               onSearch={(value: any) => {
                 console.log('value', value)
-                  history.push(`/balance/ethi/${value}`)
+                  history.push(`/balance/${value}`)
               }}
               enterButton 
               style={{ maxWidth: 604 }}
@@ -189,13 +191,14 @@ export default function IndexPage() {
           </Table>
         </Box>
         <Box sx={{ mt: '50px' }}>
-          <Pagination defaultCurrent={1} total={total} showSizeChanger={false} onChange={(e) => __page(e)} />
+          <Pagination defaultCurrent={1} total={total} pageSize={pageSize} showSizeChanger={false} onChange={(e) => __page(e)} />
         </Box>
         <Footer />
       </Box> : <Box sx={{ p: '20px' }}>
         <Typography> Updating and maintaining</Typography>
-        <Typography> transfer collection inquiry </Typography>
-        <Typography>  Mint is invalid in the same block </Typography>
+        <Typography> * transfer record </Typography>
+        <Typography> * Holder information </Typography>
+        <Typography> * Fix self-transfer error </Typography>
       </Box>}
   </ThemeProvider>
   );

@@ -12,6 +12,9 @@ import { ITickInfo } from '.';
 import { onMint } from '@/hooks/mint';
 import { Transfer } from '@/components/transfer';
 import { Footer } from '@/components/footer';
+import { Transactions } from '@/components/transactions';
+import { Holders } from '@/components/holders';
+import { addressToStr } from '@/hooks/address';
 
 interface typeTickInfo extends  ITickInfo {
   data: {
@@ -24,6 +27,8 @@ export default function DetailPage() {
   const { tick } = useParams<{ tick?: string; }>();
   const [tickInfo, __tickInfo] = useState<typeTickInfo>()
   const [holder, __holder] = useState<number>(0)
+  const [total, __total] = useState(0)
+  
   useEffect(() => {
     axios.get('/api/tick_info', {
       params: {
@@ -49,34 +54,6 @@ export default function DetailPage() {
     })
   }, [tick])
 
-  const [total, __total] = useState(0)
-  const [page, __page] = useState(1)
-  const [ts_list, __ts_list] = useState<{
-     ID: string;
-     blockNumber: string;
-     afrom: string;
-     hash: string;
-     op: string;
-     tick: string;
-  }[]>([])
-  useEffect(() => {
-    axios.get('/api/token_transaction', {
-      params: {
-        tick,
-        page,
-      }
-    }).then((res) => {
-      const data = res?.data
-      const _total = data?.total
-      const list = data?.data
-      if(_total){
-        __total(data.total)
-      }
-      __ts_list(list)
-    })
-  }, [tick, page])
-
-  console.log('tick---->', tickInfo, ts_list, total)
   const isCompleted = false
   const prog = (parseInt(tickInfo?.amount || '0') / parseInt(tickInfo?.max || '0') * 100)
 
@@ -132,7 +109,7 @@ export default function DetailPage() {
               <Typography>Limit per mint: {tickInfo?.data?.lim}</Typography>
               <Typography>Decimal: {tickInfo?.data?.dec}</Typography>
               <Typography>Deploy By: 
-                <a target="_blank" href={`https://etherscan.io/address/${tickInfo?.creator}`}>{tickInfo?.creator}</a></Typography>
+                <a target="_blank" href={`https://etherscan.io/address/${tickInfo?.creator}`}>{addressToStr(tickInfo?.creator ?? '')}</a></Typography>
               <Typography>Deploy Time: {new Date(parseInt(tickInfo?.time || '0') * 1000).toLocaleString()}</Typography>
               {/* <Typography>Completed Time: {''}</Typography> */}
               <Typography>Holders: {holder || tickInfo?.holder}</Typography>
@@ -140,49 +117,13 @@ export default function DetailPage() {
             </Box>
           </Box>
           <Box sx={{ mt: '30px' }}>
+            <Typography sx={{fontSize: '20px'}}>Holder</Typography>
+          </Box>
+          <Holders tick={tick || ''} max={parseInt(tickInfo?.max || '0') || 0} />
+          <Box sx={{ mt: '30px' }}>
             <Typography sx={{fontSize: '20px'}}>Transactions</Typography>
           </Box>
-        <Box>
-        <Box sx={{
-          border: '1px solid',
-          borderRadius: '10px!important',
-          m: '10px 0px 20px 0px',
-        }}>
-          <Table sx={{
-            m: '10px 0px 20px 0px',
-          }}>
-            <TableHead>
-              <TableRow>
-                <TableCell align="center">blockNumber</TableCell>
-                <TableCell align="center">Address</TableCell>
-                <TableCell align="center">Method</TableCell>
-                <TableCell align="center">Hash</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-                {ts_list?.map(({ID, blockNumber, afrom, hash, op, tick, }, index) => {
-                  return <TableRow key={ID}>
-                     <TableCell align="center">
-                          <Typography sx={{ textTransform: 'uppercase' }}>{blockNumber}</Typography>
-                      </TableCell>
-                     <TableCell align="center">
-                          <Typography sx={{ textTransform: 'uppercase' }}>{afrom}</Typography>
-                      </TableCell>
-                     <TableCell align="center">
-                          <Typography sx={{ textTransform: 'uppercase' }}>{op}</Typography>
-                      </TableCell>
-                     <TableCell align="center">
-                        <a target="_blank" href={`https://etherscan.io/tx/${hash}`}>
-                          <Typography sx={{ textTransform: 'uppercase' }}>{hash.substring(0, 4) + '...' + hash.substring(hash.length - 5, hash.length)}</Typography>
-                        </a>
-                      </TableCell>
-                  </TableRow>
-                })}
-            </TableBody>
-          </Table>
-        </Box>
-          <Pagination defaultCurrent={1} total={total} hideOnSinglePage simple onChange={(e) => __page(e)} />
-        </Box>
+          <Transactions tick={tick || ''} total={total} __total={__total} />
         
         <Box sx={{ mt: '30px' }}>
             <Typography sx={{fontSize: '20px'}}>Send Token</Typography>

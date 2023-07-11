@@ -41,7 +41,7 @@ export const Footer = () => {
           ></path>
         </svg>
       </a>
-      <a href="https://discord.gg/UjzsYTJE" target="_blank">
+      {/* <a href="https://discord.gg/UjzsYTJE" target="_blank">
         <svg
           viewBox="0 0 1024 1024"
           version="1.1"
@@ -63,7 +63,7 @@ export const Footer = () => {
             fill="#515151"
           ></path>
         </svg>
-      </a>
+      </a> */}
     </Box>
   );
 };

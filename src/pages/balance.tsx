@@ -18,11 +18,12 @@ import Search from 'antd/es/input/Search';
 import { Card } from 'antd';
 import { Link, useHistory, useParams } from 'umi';
 import { Footer } from '@/components/footer';
+import { BalanceChange } from '@/components/balanceChange';
 
 export default function BalancePage() {
     const history = useHistory()
   const [balances, __balances] = useState<{ tick: string; balance: string }[]>([]);
-  const { tick, address } = useParams<{ tick?: string; address?: string }>();
+  const { address } = useParams<{ address?: string }>();
 
   const [searchAddress, __searchAddress] = useState('')
   useEffect(() => {
@@ -30,6 +31,9 @@ export default function BalancePage() {
         __balances(res?.data?.data ?? [])
     })
   }, [address, searchAddress])
+
+  const [tick_index, __tick_index] = useState(0)
+  const tick = balances[tick_index]?.tick
   return (
     <ThemeProvider theme={LightTheme}>
       <Box
@@ -92,28 +96,18 @@ export default function BalancePage() {
           {(balances && balances.length > 0 ? balances : [{
             tick: 'ethi',
             balance: '0.0000',
-          }]).map((balance, index) => <Card key={JSON.stringify(balance)} title={balance.tick} style={{ width: 300, display: 'inline-block', marginRight: '20px' }}>
+          }]).map((balance, index) => <Card key={JSON.stringify(balance)} title={balance.tick} style={{ 
+            width: 300, display: 'inline-block', marginRight: '20px', cursor: 'pointer',
+            borderWidth: index === tick_index ? '6px' : '1px'
+          }} onClick={() => __tick_index(index)}>
             <Typography>Balance: {balance.balance}</Typography>
           </Card>)}
-
-          <Table>
-            {/* <TableHead>
-              <TableRow>
-                <TableCell align="center">Method</TableCell>
-                <TableCell align="center">Quantity</TableCell>
-                <TableCell align="center">Balance</TableCell>
-                <TableCell align="center">Date Time</TableCell>
-                <TableCell align="center">Date Time</TableCell>
-              </TableRow>
-            </TableHead> */}
-            <Box sx={{ mt: '20px' }}></Box>
-            <TableBody>
-              <Typography>Transaction comming soon</Typography>
-              <Box>
-                <Link to={`/send_list/${searchAddress || address}`}>query links all relevant data</Link>
-              </Box>
-            </TableBody>
-          </Table>
+          <Box sx={{ mt: '40px' }}>
+            <BalanceChange tick={tick} address={searchAddress || address || ''} />
+          </Box>
+          {/* <Box sx={{ mt: '40px' }}>
+            <Link to={`/send_list/${searchAddress || address}`}>query links all relevant data</Link>
+          </Box> */}
         </Box>
         <Footer />
       </Box>
