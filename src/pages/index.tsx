@@ -118,7 +118,9 @@ export default function IndexPage() {
               name="address"
               onSearch={(value: any) => {
                 console.log('value', value)
+                if(value){
                   history.push(`/balance/${value}`)
+                }
               }}
               enterButton 
               style={{ maxWidth: 604 }}
