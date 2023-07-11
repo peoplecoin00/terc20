@@ -199,6 +199,9 @@ export default function IndexPage() {
         <Typography> * transfer record </Typography>
         <Typography> * Holder information </Typography>
         <Typography> * Fix self-transfer error </Typography>
+        <Typography sx={{ color: 'red' }}> * Please check your balance after the update, if there is any abnormality, stop the transaction and give feedback </Typography>
+        <Typography sx={{ mt: '20px' }}> IERC-20 ETHINSC</Typography>
+        <Footer />
       </Box>}
   </ThemeProvider>
   );
