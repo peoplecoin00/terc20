@@ -80,13 +80,13 @@ export const BalanceChange: FC<{
                  <TableCell align="center">
                   {
                     from_address === receiver ? <Typography>ierc-20 coinbase</Typography> :
-                    <Link target="_blank" to={`/balance/${from_address}`}>
+                    <Link to={`/balance/${from_address}`}>
                       <Typography>{addressToStr(from_address)}</Typography>
                     </Link>
                   }
                   </TableCell>
                  <TableCell align="center">
-                    <Link target="_blank" to={`/balance/${to_address}`}>
+                    <Link to={`/balance/${to_address}`}>
                       <Typography>{addressToStr(to_address)}</Typography>
                     </Link>
                   </TableCell>
