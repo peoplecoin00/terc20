@@ -10,6 +10,7 @@ export const Holders: FC<{
 }> = ({ tick, max }) => {
   const [total, __total] = useState(0)
   const [page, __page] = useState(1)
+  const limit = 10
   const [ts_list, __ts_list] = useState<{
      address: string;
      balance: string;
@@ -51,9 +52,10 @@ export const Holders: FC<{
         <TableBody>
             {ts_list?.map(({address, balance, tick, }, index) => {
                 const _balance = parseFloat(balance) / 1e8
+                const row_index = (page - 1) * limit + index;
               return <TableRow key={address}>
                  <TableCell align="center">
-                    <Typography>{index + 1}</Typography>
+                    <Typography>{row_index + 1}</Typography>
                   </TableCell>
                  <TableCell align="center">
                     <Link to={`/balance/${address}`}>

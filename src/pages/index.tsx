@@ -96,7 +96,7 @@ export default function IndexPage() {
   }
   return (
     <ThemeProvider theme={LightTheme}>
-    {true ? <Box className={styles.slogan} sx={{
+    !{true ? <Box className={styles.slogan} sx={{
       p: '20px',
     }}>
         <Box sx={{ display: 'flex' }}>
@@ -198,8 +198,6 @@ export default function IndexPage() {
         <Footer />
       </Box> : <Box sx={{ p: '20px' }}>
         <Typography> Updating and maintaining</Typography>
-        <Typography> * transfer record </Typography>
-        <Typography> * Holder information </Typography>
         <Typography> * Fix self-transfer error </Typography>
         <Typography sx={{ color: 'red' }}> * Please check your balance after the update, if there is any abnormality, stop the transaction and give feedback </Typography>
         <Typography sx={{ mt: '20px' }}> IERC-20 ETHINSC</Typography>
