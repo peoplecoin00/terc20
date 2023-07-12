@@ -96,7 +96,7 @@ export default function IndexPage() {
   }
   return (
     <ThemeProvider theme={LightTheme}>
-    !{true ? <Box className={styles.slogan} sx={{
+    {!true ? <Box className={styles.slogan} sx={{
       p: '20px',
     }}>
         <Box sx={{ display: 'flex' }}>
