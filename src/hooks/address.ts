@@ -1,1 +1,2 @@
 export const addressToStr = (address: string) => address.substring(0, 4) + '...' + address.substring(address.length - 5, address.length)
+export const DEX_ADDRESS = '0x33302dbff493ed81ba2e7e35e2e8e833db023333'

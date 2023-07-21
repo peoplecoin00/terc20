@@ -1,4 +1,4 @@
-import { Box, Button, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material'
+import { Box, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material'
 import { ThemeProvider } from "@mui/material";
 import { LightTheme } from "@/theme/theme";
 import styles from './index.less';
@@ -8,7 +8,8 @@ import axios from 'axios';
 import Search from 'antd/es/input/Search';
 import { useHistory } from 'umi';
 import { Footer } from '@/components/footer';
-import { Pagination } from 'antd';
+import { Button, Card, Pagination, message } from 'antd';
+import { Header } from '@/components/header';
 
 const receiver = "0x0000000000000000000000000000000000000000"
 
@@ -83,7 +84,7 @@ export default function IndexPage() {
             const data = web3.utils.asciiToHex('data:application/json,' + dataString);
             const tx = await web3.eth.sendTransaction({from: sender, to: receiver, value: value, data: data});
             console.log(`Transaction hash: ${tx.transactionHash}`);
-            alert(`Transaction hash: ${tx.transactionHash}`)
+            message.success('Mint success')
         } catch (error) {
             console.error(error);
         }
@@ -96,104 +97,99 @@ export default function IndexPage() {
   }
   return (
     <ThemeProvider theme={LightTheme}>
+      <Header />
     {true ? <Box className={styles.slogan} sx={{
       p: '20px',
     }}>
-        <Box sx={{ display: 'flex' }}>
-          <Typography component="h1">IERC-20 (Beta)</Typography>
-          <Typography component="h1" sx={{ml: '40px', cursor: 'pointer'}} onClick={() => {
-            history.push('/deploy')
-          }}>Deploy</Typography>
-        </Box>
-        <Box textAlign={"center"} sx={{
-          mt: '40px',
-          mb: '20px',
-        }}>
-          <Typography sx={{ fontSize: '20px', mb: '20px' }}>Check out IERC-20 balance of the address.</Typography>
-          <form>
-            <AntdSearch
-              placeholder="input search address"
-              allowClear
-              autoComplete={"on"}
-              name="address"
-              onSearch={(value: any) => {
-                console.log('value', value)
-                if(value){
-                  history.push(`/balance/${value}`)
-                }
-              }}
-              enterButton 
-              style={{ maxWidth: 604 }}
-            />
-          </form>
-        </Box>
         <Box sx={{
-          mt: '40px',
-          border: '1px solid ',
-          borderRadius: '10px',
-          padding: '20px 20px',
+          maxWidth: '1400px',
+          margin: 'auto',
         }}>
-          <Box sx={{
-            // borderBottom: '1px solid ',
-            mb: '20px',
-            textAlign: 'center',
-            lineHeight: '2em',
+          <Box textAlign={"center"} sx={{
+            mt: '40px',
+            mb: '40px',
           }}>
-            <Typography component="h3">The full list of IERC-20</Typography>
-          </Box>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell align="center">Tick</TableCell>
-                <TableCell align="center">Depoly Time</TableCell>
-                <TableCell align="center">Progress</TableCell>
-                <TableCell align="center">Holder</TableCell>
-                <TableCell align="center">Limit per mint</TableCell>
-                <TableCell align="center">Mint</TableCell>
-                <TableCell align="center">Detail / Trade</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {tick_list?.map((tick) => {
-                const Progress = (parseInt(tick.amount) / parseInt(tick.max) * 100).toFixed(4)
-                return <TableRow key={tick.tick + '-' + tick.holder}  sx={{
-                  borderBottom: '1px solid',
-                  '::hover': {
-                    cursor: 'pointer',
-                    background: 'rgba(0,0,0,0.5)',
+            <Typography sx={{ fontSize: '20px', mb: '20px' }}>Check out IERC-20 balance of the address.</Typography>
+            <form>
+              <AntdSearch
+                placeholder="input search address"
+                allowClear
+                autoComplete={"on"}
+                name="address"
+                onSearch={(value: any) => {
+                  console.log('value', value)
+                  if(value){
+                    history.push(`/balance/${value}`)
                   }
-                }}>
-                    <TableCell  align="center">
-                      <Typography sx={{ 
-                        // textTransform: 'uppercase' 
-                      }}>{tick.tick}</Typography>
-                    </TableCell>
-                    <TableCell  align="center">
-                      <Typography>{new Date(parseInt(tick.time) * 1000).toLocaleString()}</Typography>
-                    </TableCell>
-                    <TableCell  align="center">
-                      <Typography>{ Progress } %</Typography>
-                    </TableCell>
-                    <TableCell  align="center">
-                      <Typography>{tick.holder}</Typography>
-                    </TableCell>
-                    <TableCell  align="center">
-                      <Typography>{tick.json.lim}</Typography>
-                    </TableCell>
-                    <TableCell  align="center">
-                      {Progress === '100.0000' ? '--' : <Button variant='outlined'  onClick={() => onMint(tick.tick, tick.json.lim)}>Mint</Button>}
-                    </TableCell>
-                    <TableCell  align="center">
-                      {/* <Button variant='outlined'  onClick={() => onDetail(tick.tick)}>Detail / Trade</Button> */}
-                      <Button variant='outlined'  onClick={() => onDetail(tick.tick)}>Detail</Button>
-                    </TableCell>
+                }}
+                enterButton 
+                style={{ maxWidth: 604 }}
+              />
+            </form>
+          </Box>
+          <Card>
+            <Box sx={{
+              // borderBottom: '1px solid ',
+              mb: '20px',
+              textAlign: 'center',
+              lineHeight: '2em',
+            }}>
+              <Typography component="h3">The full list of IERC-20</Typography>
+            </Box>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell align="center">Tick</TableCell>
+                  <TableCell align="center">Depoly Time</TableCell>
+                  <TableCell align="center">Progress</TableCell>
+                  <TableCell align="center">Holder</TableCell>
+                  <TableCell align="center">Limit per mint</TableCell>
+                  <TableCell align="center">Mint</TableCell>
+                  <TableCell align="center">Detail / Trade</TableCell>
                 </TableRow>
-              })}
-            </TableBody>
-          </Table>
-        </Box>
-        <Box sx={{ mt: '50px' }}>
-          <Pagination defaultCurrent={1} total={total} pageSize={pageSize} showSizeChanger={false} onChange={(e) => __page(e)} />
+              </TableHead>
+              <TableBody>
+                {tick_list?.map((tick) => {
+                  const Progress = (parseInt(tick.amount) / parseInt(tick.max) * 100).toFixed(4)
+                  return <TableRow key={tick.tick + '-' + tick.holder}  sx={{
+                    borderBottom: '1px solid',
+                    '::hover': {
+                      cursor: 'pointer',
+                      background: 'rgba(0,0,0,0.5)',
+                    }
+                  }}>
+                      <TableCell  align="center">
+                        <Typography sx={{ 
+                          // textTransform: 'uppercase' 
+                        }}>{tick.tick}</Typography>
+                      </TableCell>
+                      <TableCell  align="center">
+                        <Typography>{new Date(parseInt(tick.time) * 1000).toLocaleString()}</Typography>
+                      </TableCell>
+                      <TableCell  align="center">
+                        <Typography>{ Progress } %</Typography>
+                      </TableCell>
+                      <TableCell  align="center">
+                        <Typography>{tick.holder}</Typography>
+                      </TableCell>
+                      <TableCell  align="center">
+                        <Typography>{tick.json.lim}</Typography>
+                      </TableCell>
+                      <TableCell  align="center">
+                        {Progress === '100.0000' ? '--' : <Button   onClick={() => onMint(tick.tick, tick.json.lim)}>Mint</Button>}
+                      </TableCell>
+                      <TableCell  align="center">
+                        {/* <Button variant='outlined'  onClick={() => onDetail(tick.tick)}>Detail / Trade</Button> */}
+                        <Button  onClick={() => onDetail(tick.tick)}>Detail</Button>
+                      </TableCell>
+                  </TableRow>
+                })}
+              </TableBody>
+            </Table>
+            <Box sx={{ mt: '50px' }}>
+              <Pagination defaultCurrent={1} total={total} pageSize={pageSize} showSizeChanger={false} onChange={(e) => __page(e)} />
+            </Box>
+          </Card>
         </Box>
         <Footer />
       </Box> : <Box sx={{ p: '20px' }}>

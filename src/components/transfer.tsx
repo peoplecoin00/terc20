@@ -1,7 +1,7 @@
 import { onTransfer } from "@/hooks/mint";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import { Box, Input, Typography } from "@mui/material"
-import { Button, Form, InputNumber, Space } from "antd";
+import { Button, Card, Form, InputNumber, Space } from "antd";
 import { FC, useState } from "react";
 
 // const MuiButton = Button as any
@@ -29,12 +29,7 @@ export const Transfer: FC<{
         __send_loading(false)
         console.log('Success:', values);
     }
-    return <Box sx={{
-        border: '1px solid',
-        borderRadius: '10px',
-        padding: '40px 20px 20px 20px',
-        mt: '20px',
-    }}>
+    return <Card style={{ margin: '20px 0px' }}>
         <Typography sx={{ mb: '20px', fontSize: '16px', }}>Bulk Transfer</Typography>
         <Form
             name="basic"
@@ -60,10 +55,10 @@ export const Transfer: FC<{
                     <Form.Item
                         {...restField}
                         name={[name, 'recv']}
-                        rules={[{ required: true, message: 'Missing recv address' }]}
+                        rules={[{ required: true, message: 'Missing recv address', len: 42 }]}
                         style={{ marginBottom: '0px' }}
                     >
-                        <Input style={{width: '450px'}} placeholder="address" />
+                        <Input style={{width: '450px'}} placeholder="recv address" />
                     </Form.Item>
                     <Form.Item
                         {...restField}
@@ -84,12 +79,12 @@ export const Transfer: FC<{
             }}</Form.List>
             <Form.Item>
             <Button loading={send_loading} type="primary" htmlType="submit">
-                Send {tick.toLocaleUpperCase()}
+            Send an {tick.toLocaleUpperCase()} inscription
             </Button>
             </Form.Item>
         </Form>
-        <Typography sx={{ fontSize: '16px', mb: '4px' }}>TIPS:</Typography>
-        <Typography sx={{ color: 'rgba(0,0,0,0.8)' }}>* Please make sure you have enough balance, you check your balance first.</Typography>
-        <Typography sx={{ color: 'rgba(0,0,0,0.8)' }}>* Before mint, please do not receive transfers from others, transfers are also counted as balance.</Typography>
-    </Box>
+        <Typography sx={{ fontSize: '16px', mb: '4px', color: 'rgba(20,0,0,0.5)' }}>TIPS:</Typography>
+        <Typography sx={{ color: 'rgba(20,0,0,0.5)' }}>* Please make sure you have enough balance, you check your balance first.</Typography>
+        <Typography sx={{ color: 'rgba(20,0,0,0.5)' }}>* Before mint, please do not receive transfers from others, transfers are also counted as balance.</Typography>
+    </Card>
 }

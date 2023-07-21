@@ -1,7 +1,7 @@
 import { addressToStr } from "@/hooks/address";
 import { receiver } from "@/hooks/mint";
 import { Box, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material"
-import { Pagination } from "antd";
+import { Empty, Pagination } from "antd";
 import axios from "axios";
 import { FC, useEffect, useState } from "react";
 import { Link } from "umi";
@@ -47,9 +47,9 @@ export const BalanceChange: FC<{
 
     return <Box>
     <Box sx={{
-      border: '1px solid',
-      borderRadius: '10px!important',
-      m: '10px 0px 20px 0px',
+      // border: '1px solid',
+      // borderRadius: '10px!important',
+      // m: '10px 0px 20px 0px',
     }}>
       <Table sx={{
         m: '10px 0px 20px 0px',
@@ -92,16 +92,19 @@ export const BalanceChange: FC<{
                   </TableCell>
                  <TableCell align="center">
                     <a target="_blank" href={`https://etherscan.io/tx/${hash}`}>
-                      <Typography sx={{ textTransform: 'uppercase' }}>{hash.substring(0, 7) + '...' + hash.substring(hash.length - 7, hash.length)}</Typography>
+                      <Typography>{hash.substring(0, 7) + '...' + hash.substring(hash.length - 7, hash.length)}</Typography>
                     </a>
                   </TableCell>
                  <TableCell align="center">
-                      <Typography sx={{ textTransform: 'uppercase' }}>{b ? 'Success' : 'Fail'}</Typography>
+                      <Typography>{b ? 'Success' : 'Fail'}</Typography>
                   </TableCell>
               </TableRow>
             })}
         </TableBody>
       </Table>
+      {ts_list.length === 0 && <Box sx={{ display: 'flex', justifyContent: 'center', mt: '40px' }}>
+        <Empty />  
+      </Box>}
     </Box>
    <Pagination defaultCurrent={1} total={total} hideOnSinglePage pageSize={pageSize} showSizeChanger={false} onChange={(e) => __page(e)} />
 </Box>

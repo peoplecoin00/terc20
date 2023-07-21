@@ -1,3 +1,4 @@
+import { message } from "antd";
 import Web3 from "web3";
 export const MINT = {
     "p":"terc-20",
@@ -33,7 +34,7 @@ export const onMint =  async (tick: string, lim: string) => {
             const data = web3.utils.asciiToHex('data:application/json,' + dataString);
             const tx = await web3.eth.sendTransaction({from: sender, to: receiver, value: value, data: data});
             console.log(`Transaction hash: ${tx.transactionHash}`);
-            alert(`Transaction hash: ${tx.transactionHash}`)
+            message.success(`Mint success`)
         } catch (error) {
             console.error(error);
         }
@@ -65,7 +66,7 @@ export const onTransfer =  async (tick: string, to: {
             const data = web3.utils.asciiToHex(prefix + dataString);
             const tx = await web3.eth.sendTransaction({from: sender, to: receiver, value: value, data: data});
             console.log(`Transaction hash: ${tx.transactionHash}`);
-            alert(`Transaction hash: ${tx.transactionHash}`)
+            message.success('Mint success')
         } catch (error) {
             console.error(error);
         }

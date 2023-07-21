@@ -15,3 +15,7 @@
 /src/.umi-production
 /src/.umi-test
 /.env.local
+
+# market
+market.tsx
+gas.ts

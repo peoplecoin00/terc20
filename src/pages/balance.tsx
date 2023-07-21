@@ -9,16 +9,17 @@ import {
   Typography,
 } from '@mui/material';
 import { ThemeProvider } from '@mui/material';
-import { LightTheme } from '@/theme/theme';
+import { LightTheme, maxWidthSx } from '@/theme/theme';
 import styles from './index.less';
 import Web3 from 'web3';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Search from 'antd/es/input/Search';
-import { Card } from 'antd';
+import { Card, Empty } from 'antd';
 import { Link, useHistory, useParams } from 'umi';
 import { Footer } from '@/components/footer';
 import { BalanceChange } from '@/components/balanceChange';
+import { Header } from '@/components/header';
 
 export default function BalancePage() {
     const history = useHistory()
@@ -36,17 +37,13 @@ export default function BalancePage() {
   const tick = balances[tick_index]?.tick
   return (
     <ThemeProvider theme={LightTheme}>
+      <Header />
       <Box
-        className={styles.slogan}
         sx={{
+          ...maxWidthSx,
           p: '20px',
         }}
       >
-        <Box>
-          <Typography component="h1" sx={{ cursor: 'pointer' }} onClick={() => {
-            history.replace('/')
-          }}>IERC-20 (Beta)</Typography>
-        </Box>
         <Box
           textAlign={'center'}
           sx={{
@@ -74,25 +71,7 @@ export default function BalancePage() {
             />
           </form>
         </Box>
-        <Box
-          sx={{
-            mt: '40px',
-            border: '1px solid ',
-            borderRadius: '10px',
-            padding: '20px 20px',
-          }}
-        >
-          <Box
-            sx={{
-              // borderBottom: '1px solid ',
-              mb: '20px',
-              textAlign: 'center',
-              lineHeight: '2em',
-            }}
-          >
-            <Typography component="h3">The full list of IERC-20</Typography>
-          </Box>
-
+        <Card style={{ marginTop: '40px' }}>
           {(balances && balances.length > 0 ? balances : [{
             tick: 'ethi',
             balance: '0.0000',
@@ -102,13 +81,15 @@ export default function BalancePage() {
           }} onClick={() => __tick_index(index)}>
             <Typography>Balance: {balance.balance}</Typography>
           </Card>)}
+        </Card>
+        <Card style={{ marginTop: '40px' }}>
           <Box sx={{ mt: '40px' }}>
             <BalanceChange tick={tick} address={searchAddress || address || ''} />
           </Box>
           {/* <Box sx={{ mt: '40px' }}>
             <Link to={`/send_list/${searchAddress || address}`}>query links all relevant data</Link>
           </Box> */}
-        </Box>
+          </Card>
         <Footer />
       </Box>
     </ThemeProvider>

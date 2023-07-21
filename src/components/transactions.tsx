@@ -41,11 +41,7 @@ export const Transactions: FC<{
   }, [tick, page])
 
     return <Box>
-    <Box sx={{
-      border: '1px solid',
-      borderRadius: '10px!important',
-      m: '10px 0px 20px 0px',
-    }}>
+    <Card style={{ margin: '20px 0px' }}>
       <Table sx={{
         m: '10px 0px 20px 0px',
       }}>
@@ -80,7 +76,7 @@ export const Transactions: FC<{
             })}
         </TableBody>
       </Table>
-    </Box>
-      <Pagination defaultCurrent={1} total={total} hideOnSinglePage showSizeChanger={false} onChange={(e) => __page(e)} />
-    </Box>
+    </Card>
+    <Pagination defaultCurrent={1} total={total} hideOnSinglePage showSizeChanger={false} onChange={(e) => __page(e)} />
+  </Box>
 }

@@ -22,3 +22,8 @@ export const LightTheme = createTheme({
     },
   },
 });
+
+export const maxWidthSx = {
+  maxWidth: '1400px',
+  margin: 'auto',
+}

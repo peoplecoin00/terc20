@@ -22,10 +22,10 @@ data:application/json,{"p": "terc-20","op": "transfer","tick": "ethi","nonce": "
 
 ## Detailed examples
 
-```
-data:application/json,
+``` js
 
-+
+// data:application/json,
+// +
 
 // deploy; send 0eth from self to 0x0000000000000000000000000000000000000000;
 {
@@ -66,8 +66,57 @@ data:application/json,
     }
   ]
 }
+
+// proxy transfer; send 0eth from self to 0x0000000000000000000000000000000000000000 or 0x33302dbff493ed81ba2e7e35e2e8e833db023333 or platform address
+{
+  "p": "terc-20",
+  "op": "proxy_transfer", //transfer operation
+  "proxy": [
+    {
+      "tick": "ethi", // tick
+      "nonce": (+new Date()).toString(), // nonce
+      "from": sellerAddress, // seller address, verify
+      "to": "0x22222222222222222222222222222222222222222222", // buyer address (test)
+      "amt": "333",
+      "value": "0.001",
+      "sign": sign // the agent must carry the signature to the chain, which can be confirmed
+    }
+  ]
+}
+
+// The buyer is buying and the seller's token is frozen;  send x eth from self to 0x0000000000000000000000000000000000000000 or 0x33302dbff493ed81ba2e7e35e2e8e833db023333 or platform address
+{
+  "p": "terc-20",
+  "op": "freeze_sell",
+  "freeze": [
+    {
+      "tick": "ethi", // Seller Signature Information
+      "nonce": (+new Date()).toString(), // Seller Signature Information
+      "platform": "0x33302dbff493ed81ba2e7e35e2e8e833db023333", // Seller signature information: corresponding platform
+      "seller": "0x22222222222222222222222222222222222222222222", // Freeze the corresponding seller
+      "amt": "333", // Seller Signature Information
+      "value": "0.001", // Seller Signature Information
+      "sign": sign // The seller authorizes the signature to verify the use
+    }
+  ]
+}
 ```
 
 ## index
 
 * Mint is invalid in the same block
+
+### proxy_transfer
+
+Signature Approval Example
+
+``` ts
+const message = JSON.stringify({
+  title: 'ierc-20 one approve', // one approve
+  to: '0x33302dbff493ed81ba2e7e35e2e8e833db023333', // platform address
+  tick: 'ethi', // token
+  amt: "333", // token amt
+  value: "0.01", // eth value
+  nonce: (+new Date()).toString(),
+}, null, 4)
+```

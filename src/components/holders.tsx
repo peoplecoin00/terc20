@@ -1,5 +1,5 @@
 import { Box, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material"
-import { Pagination } from "antd";
+import { Card, Pagination } from "antd";
 import axios from "axios";
 import { FC, useEffect, useState } from "react";
 import { Link } from "umi";
@@ -33,11 +33,7 @@ export const Holders: FC<{
     })
   }, [tick, page])
     return <Box>
-    <Box sx={{
-      border: '1px solid',
-      borderRadius: '10px!important',
-      m: '10px 0px 20px 0px',
-    }}>
+    <Card style={{ margin: '20px 0px' }}>
       <Table sx={{
         m: '10px 0px 20px 0px',
       }}>
@@ -72,7 +68,7 @@ export const Holders: FC<{
             })}
         </TableBody>
       </Table>
-    </Box>
+    </Card>
    <Pagination defaultCurrent={1} total={total} hideOnSinglePage showSizeChanger={false} onChange={(e) => __page(e)} />
 </Box>
 }
