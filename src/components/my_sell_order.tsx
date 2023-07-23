@@ -110,7 +110,7 @@ export const MySellOrder: FC<{
             {ts_list?.map(({ID, value, tick, time, creator, amt, nonce,  status }, index) => {
               return <TableRow key={ID + nonce}>
                  <TableCell align="center">
-                      <Typography sx={{ textTransform: 'uppercase' }}>{new Date(time).toLocaleString()}</Typography>
+                      <Typography sx={{ textTransform: 'uppercase' }}>{new Date(+time).toLocaleString()}</Typography>
                   </TableCell>
                  <TableCell width="30%" align="center">
                     <Link to={`/balance/${creator}`}>

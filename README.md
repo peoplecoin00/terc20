@@ -96,6 +96,7 @@ data:application/json,{"p": "terc-20","op": "transfer","tick": "ethi","nonce": "
       "seller": "0x22222222222222222222222222222222222222222222", // Freeze the corresponding seller
       "amt": "333", // Seller Signature Information
       "value": "0.001", // Seller Signature Information
+      "gasPrice": "33988168450", // gasPrice
       "sign": sign // The seller authorizes the signature to verify the use
     }
   ]

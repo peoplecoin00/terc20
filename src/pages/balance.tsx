@@ -80,6 +80,7 @@ export default function BalancePage() {
             borderWidth: index === tick_index ? '6px' : '1px'
           }} onClick={() => __tick_index(index)}>
             <Typography>Balance: {balance.balance}</Typography>
+            <Typography>Freeze funds: soon</Typography>
           </Card>)}
         </Card>
         <Card style={{ marginTop: '40px' }}>

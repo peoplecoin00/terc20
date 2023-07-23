@@ -98,7 +98,7 @@ export default function IndexPage() {
   return (
     <ThemeProvider theme={LightTheme}>
       <Header />
-    {true ? <Box className={styles.slogan} sx={{
+    {false ? <Box className={styles.slogan} sx={{
       p: '20px',
     }}>
         <Box sx={{
@@ -194,7 +194,8 @@ export default function IndexPage() {
         <Footer />
       </Box> : <Box sx={{ p: '20px' }}>
         <Typography> Updating and maintaining</Typography>
-        <Typography> * Fix self-transfer error </Typography>
+        <Typography> * <b>Add a market page</b>, currently in the testing phase, invited users can participate, it is best to trade with your friends, because there may be problems in the testing phase </Typography>
+        <Typography> * A sale can only be purchased once </Typography>
         <Typography sx={{ color: 'red' }}> * Please check your balance after the update, if there is any abnormality, stop the transaction and give feedback </Typography>
         <Typography sx={{ mt: '20px' }}> IERC-20 ETHINSC</Typography>
         <Footer />
