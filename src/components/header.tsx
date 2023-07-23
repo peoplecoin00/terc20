@@ -13,6 +13,7 @@ localStorage.wl = JSON.stringify([
   '0x71F66df108A0a5d5849531ebb7Ce9C1F5D209c0A',
   '0xaCD9875a763C1A2Ce97b073B65467c7B064C6fD9',
   '0xF79DDd3cAa5357B368d8Ecb0B5E7D0631E37246e',
+  '0x9438ac0358a2c9654cb8cd5f3cc0465e524cc78b',
 ])
 
 export const Header = () => {

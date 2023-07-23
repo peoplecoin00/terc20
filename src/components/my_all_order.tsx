@@ -26,7 +26,7 @@ export const AllOrder: FC<{
      tick: string;
      nonce: string;
      ato: string;
-    //  sign: string;
+     hash: string;
   }[]>([])
 
   const [count, __count] = useState(0)
@@ -59,22 +59,23 @@ export const AllOrder: FC<{
             <TableCell align="center">Buyer</TableCell>
             <TableCell align="center">Sell Number</TableCell>
             <TableCell align="center">Value</TableCell>
+            <TableCell align="center">Hash</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-            {ts_list?.map(({ID, value, tick, time, creator, amt, nonce, ato }, index) => {
+            {ts_list?.map(({ID, value, tick, time, creator, amt, nonce, ato, hash }, index) => {
               return <TableRow key={ID + nonce}>
                  <TableCell align="center">
                       <Typography sx={{ textTransform: 'uppercase' }}>{new Date(parseInt(time) * 1000).toLocaleString()}</Typography>
                   </TableCell>
                  <TableCell align="center">
-                    <Link to={`/balance/${creator}`}>
-                      <Typography sx={{ textTransform: 'uppercase' }}>{addressToStr(creator)}</Typography>
+                    <Link to={`/balance/${ato}`}>
+                      <Typography sx={{ textTransform: 'uppercase' }}>{addressToStr(ato)}</Typography>
                     </Link>
                   </TableCell>
                  <TableCell  align="center">
-                    <Link to={`/balance/${ato}`}>
-                      <Typography sx={{ textTransform: 'uppercase' }}>{addressToStr(ato)}</Typography>
+                    <Link to={`/balance/${creator}`}>
+                      <Typography sx={{ textTransform: 'uppercase' }}>{addressToStr(creator)}</Typography>
                     </Link>
                   </TableCell>
                  <TableCell align="center">
@@ -82,6 +83,11 @@ export const AllOrder: FC<{
                   </TableCell>
                  <TableCell align="center">
                       <Typography sx={{ textTransform: 'uppercase' }}>{new BigNumber(value).dividedBy(1e18).toFixed(5)} eth</Typography>
+                  </TableCell>
+                 <TableCell align="center">
+                    <a target="_blank" href={`https://etherscan.io/tx/${hash}`}>
+                      <Typography sx={{ textTransform: 'uppercase' }}>{hash.substring(0, 4) + '...' + hash.substring(hash.length - 5, hash.length)}</Typography>
+                    </a>
                   </TableCell>
               </TableRow>
             })}
