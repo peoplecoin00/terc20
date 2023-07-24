@@ -79,7 +79,10 @@ export default function BalancePage() {
             width: 300, display: 'inline-block', marginRight: '20px', cursor: 'pointer',
             borderWidth: index === tick_index ? '6px' : '1px'
           }} onClick={() => __tick_index(index)}>
-            <Typography>Balance: {balance.balance}</Typography>
+            <Typography>
+              Balance: {balance.balance.split('.')?.[0]}
+              <span style={{ fontSize: '12px' }}>.{balance.balance.split('.')?.[1]}</span>
+            </Typography>
             <Typography>Freeze funds: soon</Typography>
           </Card>)}
         </Card>
