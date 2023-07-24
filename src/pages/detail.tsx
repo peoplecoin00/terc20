@@ -91,9 +91,9 @@ export default function DetailPage() {
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center',  p: '20px 20px 0px 20px' }}>
               <Typography sx={{ fontSize: '18px' }}>Overview</Typography>
               <Box>
-                {/* <Link to={`/market?tick=${tick}`}> */}
-                  <Button disabled type='link' href={`/market?tick=${tick}`}>Trade</Button>
-                {/* </Link> */}
+                <Link to={`/market?tick=${tick}`}>
+                  <Button>Trade</Button>
+                </Link>
               </Box>
             </Box>
             <Box sx={{ p: '0px 20px 20px 20px', '.MuiTypography-root': {

@@ -125,7 +125,7 @@ export const Header = () => {
               {
                 t: 'Market',
                 link: '/market',
-                disabled: !isWl,
+                disabled: false,
                 icon: (
                   <svg
                     viewBox="0 0 1024 1024"
