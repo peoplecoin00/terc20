@@ -10,6 +10,7 @@ import {  Card, Form, Input, Button, message } from 'antd';
 import { useHistory, useParams } from 'umi';
 import { Footer } from '@/components/footer';
 import { Header } from '@/components/header';
+import { stringToHex } from '@/hooks/hex';
 const receiver = "0x0000000000000000000000000000000000000000"
 
 // const MuiButton = Button as any
@@ -37,7 +38,7 @@ export default function DeployPage() {
             const accounts = await web3.eth.getAccounts();
             const sender = accounts[0];
             const value = web3.utils.toWei('0', 'ether');
-            const data = web3.utils.asciiToHex('data:application/json,' + dataString);
+            const data = stringToHex('data:application/json,' + dataString);
             const tx = await web3.eth.sendTransaction({from: sender, to: receiver, value: value, data: data});
             console.log(`Transaction hash: ${tx.transactionHash}`);
             message.success('successful deployment')
