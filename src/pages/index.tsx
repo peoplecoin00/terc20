@@ -145,7 +145,7 @@ export default function IndexPage() {
                   <TableCell align="center">Progress</TableCell>
                   <TableCell align="center">Holder</TableCell>
                   <TableCell align="center">Limit per mint</TableCell>
-                  <TableCell align="center">Mint</TableCell>
+                  {/* <TableCell align="center">Mint</TableCell> */}
                   <TableCell align="center">Detail / Trade</TableCell>
                 </TableRow>
               </TableHead>
@@ -176,9 +176,9 @@ export default function IndexPage() {
                       <TableCell  align="center">
                         <Typography>{tick.json.lim}</Typography>
                       </TableCell>
-                      <TableCell  align="center">
+                      {/* <TableCell  align="center">
                         {Progress === '100.0000' ? '--' : <Button   onClick={() => onMint(tick.tick, tick.json.lim)}>Mint</Button>}
-                      </TableCell>
+                      </TableCell> */}
                       <TableCell  align="center">
                         {/* <Button variant='outlined'  onClick={() => onDetail(tick.tick)}>Detail / Trade</Button> */}
                         <Button  onClick={() => onDetail(tick.tick)}>Detail</Button>

@@ -11,14 +11,21 @@ data:application/json,
 ## Simple example
 
 ### Deploy
-data:application/json,{"p":"terc-20","op":"deploy","tick":"ethi","max":"21000000","lim":"1000","wlim":"10000","dec":"8","nonce":"10"}
+data:application/json,{"p":"ierc-20","op":"deploy","tick":"ethi","max":"21000000","lim":"1000","wlim":"10000","dec":"8","nonce":"10"}
 
 ### Mint
-data:application/json,{"p":"terc-20","op":"mint","tick":"ethi","amt":"1000","nonce":"11"}
+data:application/json,{"p":"ierc-20","op":"mint","tick":"ethi","amt":"1000","nonce":"11"}
 
 ### Transfer
-data:application/json,{"p": "terc-20","op": "transfer","tick": "ethi","nonce": "45","to": [{"recv": "0x7BBAF8B409145Ea9454Af3D76c6912b9Fb99b2A9","amt": "10000"}]}
+data:application/json,{"p": "ierc-20","op": "transfer","tick": "ethi","nonce": "45","to": [{"recv": "0x7BBAF8B409145Ea9454Af3D76c6912b9Fb99b2A9","amt": "10000"}]}
 
+### Proxy transfer
+
+data:application/json,{"p":"ierc-20","op":"proxy_transfer","proxy":[{"tick":"ethi","nonce":"20","from":"0x22222222222222222222222222222222222222222222","to":"0x22222222222222222222222222222222222222222222","amt":"333","value":"0.001","sign":"0x000"}]}
+
+### Freeze sell
+
+data:application/json,{"p":"ierc-20","op":"freeze_sell","freeze":[{"tick":"ethi","nonce":"1690469437811","platform":"0x33302dbff493ed81ba2e7e35e2e8e833db023333","seller":"0x22222222222222222222222222222222222222222222","amt":"333","value":"0.001","gasPrice":"33988168450","sign":"0x00"}]}
 
 ## Detailed examples
 
@@ -29,8 +36,8 @@ data:application/json,{"p": "terc-20","op": "transfer","tick": "ethi","nonce": "
 
 // deploy; send 0eth from self to 0x0000000000000000000000000000000000000000;
 {
-    "p":"terc-20", //protocol name: tradable/transferrable erc-20
-    "op":"deploy", //operation: deploy/mint/transfer/sell/sellAck
+    "p":"ierc-20", //protocol name: ierc20 | terc-20
+    "op":"deploy", //operation: deploy/mint/transfer/freeze_sell/proxy_transfer
     "tick":"ethi", //token tick, can't be repeatable, case insensitive.
     "max":"21000000", //max supply
     "lim":"1000", //limit for each mint
@@ -42,7 +49,7 @@ data:application/json,{"p": "terc-20","op": "transfer","tick": "ethi","nonce": "
 // mint; send 0eth from self to 0x0000000000000000000000000000000000000000;
 // The initiator of the transaction is the receiver
 {
-    "p":"terc-20",
+    "p":"ierc-20",
     "op":"mint", //mint operation
     "tick":"ethi",
     "amt":"1000", //mint amount
@@ -51,7 +58,7 @@ data:application/json,{"p": "terc-20","op": "transfer","tick": "ethi","nonce": "
 
 // transfer; send 0eth from self to 0x0000000000000000000000000000000000000000
 {
-  "p": "terc-20",
+  "p": "ierc-20",
   "op": "transfer", //transfer operation
   "tick": "ethi",
   "nonce": "2",
@@ -69,7 +76,7 @@ data:application/json,{"p": "terc-20","op": "transfer","tick": "ethi","nonce": "
 
 // proxy transfer; send 0eth from self to 0x0000000000000000000000000000000000000000 or 0x33302dbff493ed81ba2e7e35e2e8e833db023333 or platform address
 {
-  "p": "terc-20",
+  "p": "ierc-20",
   "op": "proxy_transfer", //transfer operation
   "proxy": [
     {
@@ -86,7 +93,7 @@ data:application/json,{"p": "terc-20","op": "transfer","tick": "ethi","nonce": "
 
 // The buyer is buying and the seller's token is frozen;  send x eth from self to 0x0000000000000000000000000000000000000000 or 0x33302dbff493ed81ba2e7e35e2e8e833db023333 or platform address
 {
-  "p": "terc-20",
+  "p": "ierc-20",
   "op": "freeze_sell",
   "freeze": [
     {
