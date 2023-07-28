@@ -2,7 +2,7 @@ import { message } from "antd";
 import Web3 from "web3";
 import { stringToHex } from "./hex";
 export const MINT = {
-    "p":"terc-20",
+    "p":"ierc-20",
     "op":"mint",
     // "tick":"ethi",
     // "amt":"1000",
@@ -10,7 +10,7 @@ export const MINT = {
 const prefix = "data:application/json,";
 // data:application/json,{"p": "terc-20","op": "transfer","tick": "ethi","nonce": "45","to": [{"recv": "0x7BBAF8B409145Ea9454Af3D76c6912b9Fb99b2A9","amt": "10000"}]}
 const TRANSFER = {
-    "p": "terc-20",
+    "p": "ierc-20",
     "op": "transfer",
 }
 export const receiver = "0x0000000000000000000000000000000000000000"

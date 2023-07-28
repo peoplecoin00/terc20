@@ -20,7 +20,7 @@ export default function DeployPage() {
   const onFinish = async (values: {Tick: string, Supply: string, Limit: string}) => {
     console.log('Success:', values);
     const json = {
-        "p":"terc-20",
+        "p":"ierc-20",
         "op":"deploy",
         "tick": values.Tick,
         "max":values.Supply,
