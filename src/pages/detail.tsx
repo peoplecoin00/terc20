@@ -20,6 +20,7 @@ import { Header } from '@/components/header';
 interface typeTickInfo extends  ITickInfo {
   data: {
     lim: string;
+    wlim: string;
     dec: string;
   }
 }
@@ -103,6 +104,7 @@ export default function DetailPage() {
               <Typography>Supply: {tickInfo?.max}</Typography>
               <Typography>Minted: {tickInfo?.amount}</Typography>
               <Typography>Limit per mint: {tickInfo?.data?.lim}</Typography>
+              <Typography>Maximum minting times for a single address: {Number(tickInfo?.data?.wlim ?? '0') / Number(tickInfo?.data?.lim ?? '0')}</Typography>
               <Typography>Decimal: {tickInfo?.data?.dec}</Typography>
               <Typography>Deploy By: 
                 <a target="_blank" href={`https://etherscan.io/address/${tickInfo?.creator}`}>{addressToStr(tickInfo?.creator ?? '')}</a></Typography>
