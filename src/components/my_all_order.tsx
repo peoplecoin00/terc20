@@ -12,7 +12,8 @@ import BigNumber from "bignumber.js";
 
 export const AllOrder: FC<{
     reload?: () => void;
-}> = ({ reload }) => {
+    ethusd: string;
+}> = ({ reload, ethusd }) => {
   // const { web3 } = useEth()
     
   const [total, __total] = useState(0)
@@ -58,12 +59,15 @@ export const AllOrder: FC<{
             <TableCell align="center">Seller</TableCell>
             <TableCell align="center">Buyer</TableCell>
             <TableCell align="center">Sell Number</TableCell>
-            <TableCell align="center">Value</TableCell>
+            <TableCell align="center">Price</TableCell>
+            <TableCell align="center">Total Value</TableCell>
             <TableCell align="center">Hash</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
             {ts_list?.map(({ID, value, tick, time, creator, amt, nonce, ato, hash }, index) => {
+              
+              const price_usd = new BigNumber(parseFloat(ethusd) * parseFloat(value)).dividedBy(1e18)//.toFixed(5)
               return <TableRow key={ID + nonce}>
                  <TableCell align="center">
                       <Typography sx={{ textTransform: 'uppercase' }}>{new Date(parseInt(time) * 1000).toLocaleString()}</Typography>
@@ -82,7 +86,12 @@ export const AllOrder: FC<{
                       <Typography>{amt} {tick}</Typography>
                   </TableCell>
                  <TableCell align="center">
+                      <Typography sx={{ textTransform: 'uppercase' }}>{new BigNumber(value).dividedBy(1e18).dividedBy(amt).toFixed(8)} eth</Typography>
+                      <Typography>≈ {price_usd.dividedBy(amt).toFixed(5)}</Typography>
+                  </TableCell>
+                 <TableCell align="center">
                       <Typography sx={{ textTransform: 'uppercase' }}>{new BigNumber(value).dividedBy(1e18).toFixed(5)} eth</Typography>
+                      <Typography>≈ {price_usd.toFixed(5)}</Typography>
                   </TableCell>
                  <TableCell align="center">
                     <a target="_blank" href={`https://etherscan.io/tx/${hash}`}>
