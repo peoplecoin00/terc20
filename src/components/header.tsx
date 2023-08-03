@@ -101,7 +101,7 @@ export const Header = () => {
                 ),
               },
               {
-                t: 'Ierc-20',
+                t: 'IERC-20',
                 link: '/',
                 icon: (
                   <svg
