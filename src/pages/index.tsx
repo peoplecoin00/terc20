@@ -21,8 +21,8 @@ const MINT = {
   // "amt":"1000",
 }
 
-axios.defaults.baseURL = location.host === 'localhost:1001' ? 'http://127.0.0.1:3000' : 'https://api.ethinsc.xyz'
-// axios.defaults.baseURL = 'https://api.ethinsc.xyz'
+// axios.defaults.baseURL = location.host === 'localhost:1001' ? 'http://127.0.0.1:3000' : 'https://api.ethinsc.xyz'
+axios.defaults.baseURL = 'https://api.ethinsc.xyz'
 
 const AntdSearch: any = Search
 export default function IndexPage() {
