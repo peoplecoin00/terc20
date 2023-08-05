@@ -2,7 +2,7 @@ import { Box } from '@mui/material';
 
 export const Footer = () => {
   return (
-    <Box
+    1 ? <></> : <Box
       display="flex"
       justifyContent="center"
       sx={{
